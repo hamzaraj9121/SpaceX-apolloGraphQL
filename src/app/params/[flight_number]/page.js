@@ -49,13 +49,16 @@ export default function FlightDetails() {
 
   const getStatusColor = (isSuccess) => isSuccess ? 'bg-blue-600' : 'bg-red-600';
   const getStatusText = (isSuccess) => isSuccess ? 'Successful' : 'Failed';
+  const getTextColor = (isSuccess) => isSuccess ? 'text-blue-500' : 'text-red-500';
+  const getHeaderColor = (isSuccess) => isSuccess ? 'text-blue-400' : 'text-red-400';
+  const getDataColor = (isSuccess) => isSuccess ? 'text-white' : 'text-red-400';
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-5xl font-bold mb-2 text-blue-500">{flightDetails.mission_name}</h1>
+          <h1 className={`text-5xl font-bold mb-2 ${getTextColor(flightDetails.launch_success)}`}>{flightDetails.mission_name}</h1>
           <div className="h-1 w-24 bg-red-600"></div>
         </div>
 
@@ -64,16 +67,14 @@ export default function FlightDetails() {
           <div className={`${getStatusColor(flightDetails.launch_success)} px-6 py-2 rounded-lg font-semibold text-white`}>
             {getStatusText(flightDetails.launch_success)}
           </div>
-          <div className={`${flightDetails.upcoming ? 'bg-red-600' : 'bg-blue-600'} px-6 py-2 rounded-lg font-semibold text-white`}>
-            {flightDetails.upcoming ? 'Upcoming' : 'Completed'}
-          </div>
+         
         </div>
 
         {/* Main Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Left Column */}
-          <div className="border-2 border-blue-500 bg-gray-900 rounded-lg p-6 ">
-            <h2 className="text-blue-400 text-sm uppercase tracking-wide font-bold mb-4">Flight Information</h2>
+          <div className={`${flightDetails.launch_success ? 'border-blue-500' : 'border-red-600'} border-2 bg-gray-900 rounded-lg p-6 hover:${flightDetails.launch_success ? 'border-blue-400' : 'border-red-400'} transition`}>
+            <h2 className={`${getHeaderColor(flightDetails.launch_success)} text-sm uppercase tracking-wide font-bold mb-4`}>Flight Information</h2>
             <div className="space-y-4">
               <div>
                 <p className="text-gray-400 text-sm">Flight Number</p>
@@ -87,17 +88,17 @@ export default function FlightDetails() {
           </div>
 
           {/* Right Column */}
-          <div className="border-2 border-blue-600 bg-gray-900 rounded-lg p-6">
-            <h2 className="text-blue-400 text-sm uppercase tracking-wide font-bold mb-4">Launch Details</h2>
+         <div className={`${flightDetails.launch_success ? 'border-blue-500' : 'border-red-600'} border-2 bg-gray-900 rounded-lg p-6 hover:${flightDetails.launch_success ? 'border-blue-400' : 'border-red-400'} transition`}>
+            <h2 className={`${getHeaderColor(flightDetails.launch_success)} text-sm uppercase tracking-wide font-bold mb-4`}>Launch Details</h2>
             <div className="space-y-4">
               <div>
                 <p className="text-gray-400 text-sm">Launch Date (Local)</p>
-                <p className="text-white text-lg font-semibold">{new Date(flightDetails.launch_date_local).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p className={`${getDataColor(flightDetails.launch_success)} text-lg font-semibold`}>{new Date(flightDetails.launch_date_local).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               </div>
               {flightDetails.static_fire_date_utc && (
                 <div>
                   <p className="text-gray-400 text-sm">Static Fire Date</p>
-                  <p className="text-white text-sm">{new Date(flightDetails.static_fire_date_utc).toLocaleDateString()}</p>
+                  <p className={`${getDataColor(flightDetails.launch_success)} text-sm`}>{new Date(flightDetails.static_fire_date_utc).toLocaleDateString()}</p>
                 </div>
               )}
             </div>
@@ -107,14 +108,14 @@ export default function FlightDetails() {
         {/* Details Section */}
         {flightDetails.details && (
           <div className="border-2 border-gray-700 bg-gray-900 rounded-lg p-6 mb-8">
-            <h2 className="text-blue-400 text-sm uppercase tracking-wide font-bold mb-4">Mission Details</h2>
-            <p className="text-gray-100 leading-relaxed line-clamp-6">{flightDetails.details}</p>
+            <h2 className={`${getHeaderColor(flightDetails.launch_success)} text-sm uppercase tracking-wide font-bold mb-4`}>Mission Details</h2>
+            <p className={`${flightDetails.launch_success ? 'text-gray-100' : 'text-red-300'} leading-relaxed line-clamp-6`}>{flightDetails.details}</p>
           </div>
         )}
 
         {/* Footer Info */}
         <div className="text-center text-gray-500 text-sm py-6 border-t border-gray-800">
-          <p>Flight ID: <span className="text-red-500">{flightDetails.flight_number}</span></p>
+          <p>Flight ID: <span className={`${getTextColor(flightDetails.launch_success)}`}>{flightDetails.flight_number}</span></p>
         </div>
       </div>
     </div>
