@@ -43,7 +43,7 @@ const resolvers = {
     students: async () => (await axios.get("https://api.spacexdata.com/v3/launches")).data,
     flight: async (_, { flight_number }) => {
       const flights = (await axios.get("https://api.spacexdata.com/v3/launches")).data;
-      return flights.find(flights => flights.flight_number === flight_number);
+      return flights.find(flight => flight.flight_number === flight_number);
     },
   },
   };

@@ -2,13 +2,13 @@ import Image from "next/image"
 
 export default function Loading(){
     return(
-  <div  className="flex justify-center " >
+  <div  className="flex justify-center items-center min-h-screen " >
 
         <Image
         src="/images/loader.gif"
         alt=""
-        width={200}  
-        height={200}
+        width={100}  
+        height={100}
         
         
 />
