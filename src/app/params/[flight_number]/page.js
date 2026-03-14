@@ -37,6 +37,7 @@ export default function FlightDetails() {
       });
 
       const result = await res.json();
+      console.log(result);
       setFlightDetails(result?.data?.flight || null);
       setLoading(false);
     }
@@ -59,7 +60,7 @@ export default function FlightDetails() {
         {/* Header Section */}
         <div className="mb-8">
           <h1 className={`text-5xl font-bold mb-2 ${getTextColor(flightDetails.launch_success)}`}>{flightDetails.mission_name}</h1>
-          <div className="h-1 w-24 bg-red-600"></div>
+          <div className="h-1 w-24 bg-white"></div>
         </div>
 
         {/* Status Badges */}
@@ -93,7 +94,7 @@ export default function FlightDetails() {
             <div className="space-y-4">
               <div>
                 <p className="text-gray-400 text-sm">Launch Date (Local)</p>
-                <p className={`${getDataColor(flightDetails.launch_success)} text-lg font-semibold`}>{new Date(flightDetails.launch_date_local).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p className= "text-lg font-semibold">{new Date(flightDetails.launch_date_local).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
               </div>
               {flightDetails.static_fire_date_utc && (
                 <div>
